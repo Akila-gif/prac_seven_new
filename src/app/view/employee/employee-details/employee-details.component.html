@@ -1,0 +1,143 @@
+<link
+  href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  rel="stylesheet"
+/>
+<br>
+<header>
+  <div class="col-lg-6 ">
+    <h1>Employee Details</h1>
+  </div>
+
+  <div class="col-lg-6 right-nav">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Employee Details</li>
+    </ol>
+  </div>
+
+</header>
+
+<!--
+
+<table class="table table-striped table-hover">
+  <thead class="table-light">
+  <tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Nic</th>
+    <th>Age</th>
+    <th>Gender</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let employee of employees">
+    <td>{{employee.id}}</td>
+    <td>{{employee.name}}</td>
+    <td>{{employee.nic}}</td>
+    <td>{{employee.age}}</td>
+    <td>{{employee.gender_id ? employee.gender_id.type : employee.gender_id}}</td>
+  </tr>
+  </tbody>
+</table>
+
+-->
+<!--<div class="form-group col-lg-6">
+
+  <div class="col-lg-6">
+    <label>Name</label>
+    <input [formControl]="employeeNameSearch" (keyup)="searchEmp()" class="form-control" type="text">
+  </div>
+
+  <div class="col-lg-6">
+    <label>Gender</label>
+    <select [formControl]="employeeGenderSearch"(change)="searchEmp()"  name="gender" id="genderSearch" class="form-control">
+      <option  value="0"  disabled>Select gender</option>
+      <option  *ngFor="let gender of genders" value="{{gender.id}}">{{gender.type}}</option>
+    </select>
+  </div>
+
+</div>
+
+<div class="col-lg-6 right-nav">
+  <button class="btn btn-primary" (click)="searchEmp()" >Search</button>
+</div>-->
+<form [formGroup]="searchFormGroup" class="col-lg-6">
+  <mat-form-field class="col-lg-6" appearance="outline">
+  <mat-label>Name</mat-label>
+    <input matInput formControlName ="employeeNameSearch" type="text" placeholder="Ex:-Akila" (keyup)="searchEmp()">
+  </mat-form-field>
+
+  <mat-form-field class="col-lg-3" appearance="outline">
+    <mat-label>Gender</mat-label>
+    <mat-select formControlName ="employeeGenderSearch" (selectionChange)="searchEmp()">
+      <mat-option *ngFor="let gender of genders" [value]="gender.id" >{{gender.type}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
+<div class="col-lg-2 right-nav" style="float: right;padding-top:20px ">
+  <button mat-button color="primary" (click)="searchEmp()" style="padding:20px ">
+    <mat-icon>search</mat-icon>Search
+  </button>
+</div>
+
+<div class="table-responsive-md">
+
+  <table mat-table [dataSource]="employees!" class="w-100 mat-table">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let employee"> {{employee?.['id']}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let employee"> {{employee?.['name']}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="nic">
+      <th mat-header-cell *matHeaderCellDef> NIC </th>
+      <td mat-cell *matCellDef="let employee"> {{employee?.['nic']}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="age">
+      <th mat-header-cell *matHeaderCellDef> Age </th>
+      <td mat-cell *matCellDef="let employee"> {{employee?.['age']}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="gender_id">
+      <th mat-header-cell *matHeaderCellDef> Gender </th>
+      <td mat-cell *matCellDef="let employee"> {{employee?.['gender_id'].type}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="btnMore">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let employee">
+        <button routerLink="/employee/details/{{employee.id}}" mat-flat-button>
+          <span class="material-icons">read_more</span> More
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="btnUpdate">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let employee">
+        <button routerLink="/employee/update/{{employee.id}}" mat-flat-button color="accent" class="accent">
+          <span class="material-icons">update</span>Update
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="btnDelete">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let employee">
+        <button (click)="deleteEmployee (employee)" mat-flat-button color="warn" >
+         <span class="material-icons">delete</span>
+          Delete
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+</div>

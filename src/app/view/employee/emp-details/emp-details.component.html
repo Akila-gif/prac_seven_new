@@ -1,0 +1,82 @@
+<br>
+<header>
+  <div class="col-lg-6">
+    <h1>Employee Details</h1>
+  </div>
+
+  <div class="col-lg-6 right-nav">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Employee Details</li>
+    </ol>
+  </div>
+</header>
+<br><br><br>
+<section>
+  <div class="col-lg-6">
+    <form [formGroup]="employeeForm">
+      <mat-form-field class="col-lg-3" appearance="outline">
+        <mat-label>Title</mat-label>
+        <mat-select formControlName="empTitle">
+          <mat-option value="Mr">Mr</mat-option>
+          <mat-option value="Mrs">Mrs</mat-option>
+          <mat-option value="Miss">Miss</mat-option>
+        </mat-select>
+        <mat-error *ngIf="titleField.invalid">
+          <span *ngIf="titleField.errors ?.['required']">Name is required</span>
+        </mat-error>
+
+      </mat-form-field>
+
+      <mat-form-field class="col-lg-9" appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput class="col-lg-4"  type="text" formControlName="empName" placeholder="Ex. Akila Weerasinghe" >
+        <mat-error *ngIf="nameField.invalid">
+          <span *ngIf="nameField.errors?.['required']">*Name is required. </span>
+          <span *ngIf="nameField.errors?.['minlength']">*Name is minimum 3 length.</span>
+          <span *ngIf="nameField.errors?.['maxLength']">*Name is minimum 255 length.</span>
+          <span *ngIf="nameField.errors?.['pattern']">*Name is invalid </span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-lg-12" appearance="outline">
+        <mat-label>Nic</mat-label>
+        <input matInput type="text" formControlName="empNic"  placeholder="987456321V">
+        <mat-error *ngIf="nicField.invalid">
+          <span *ngIf="nicField.errors?.['required']">*Nic is required. </span>
+          <span *ngIf="nicField.errors?.['minlength']">*Nic is minimum 9 length.</span>
+          <span *ngIf="nicField.errors?.['maxLength']">*Nic is minimum 12 length.</span>
+          <span *ngIf="nicField.errors?.['pattern']">*Nic is invalid </span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Age</mat-label>
+        <input matInput type="text" formControlName="empAge" placeholder="18-55">
+        <mat-error *ngIf="ageField.invalid">
+          <span *ngIf="ageField.errors?.['required']">*Age is required. </span>
+          <span *ngIf="ageField.errors?.['max']">*Age age should between 18 - 50.</span>
+          <span *ngIf="ageField.errors?.['min']">*Age age should between 18 - 50.</span>
+        </mat-error>
+      </mat-form-field>
+
+      <div class="col-lg-1"></div>
+
+      <mat-form-field class="col-lg-3" appearance="outline">
+        <mat-label>Gender</mat-label>
+        <mat-select formControlName="empGender">
+          <mat-option disabled value="noneValue">Select Gender</mat-option>
+          <mat-option *ngFor="let gender of genders" value="{{gender.id}}">{{gender.type}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="ageField.invalid">
+          <span *ngIf="ageField.errors?.['required']">*gender is required. </span>
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </div>
+</section>
+
+<div>
+
+</div>
+
